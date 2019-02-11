@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+	<h1 class="text-center">
+		Mail Page
+	</h1>
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-secondary btn-md">Send</button>
+	</form>
+</div>
+
+{% endblock %}
