@@ -1,15 +1,56 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+
 
 {% block content %}
+{% if messages %}
+<ul class="messages">
+	{% for message in messages %}
+	<li {% if messages.tags %} class=" {{ message.tags }}" {% endif %}>{{ message }}</li>
+	{% endfor %}
+</ul>
+{% endif %}
 <div class="container text-center">
-	<h1 class="text-center">
-		Mail Page
-	</h1>
-	<form method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit" class="btn btn-secondary btn-md">Send</button>
-	</form>
+    <div class="row">
+    	<div class="col-2 px-0">
+    		Sidebar
+    	</div>
+    	<div class="col-8 mails-section">
+    		<!-- <div class="search-section justify-content-center">
+    			<form class="form-inline" method="post">
+    				{% csrf_token %}
+    				{{ form|crispy }}
+    				<span><button class="btn btn-secondary btn-sm" type="submit">Search</button></span>
+    			</form>
+    		</div> -->
+			{% for mail in mail_list %}
+			<article class="mail">
+				<section class="mail-header">
+					<h4 class="text-center">
+					{{ mail.subject }}
+					</h4>
+					<span><small>to {{ mail.to }}</small></span>
+					<a class="mail-options text-right" href="#"></a>
+				</section>
+				<section class="mail-message">
+					{{ mail.message}}
+				</section>
+				<section class="mail-options">
+					<div class="row">
+						<div class="col-4"></div>
+						<div class="col-4"></div>
+						<div class="col-4"></div>
+					</div>
+				</section>
+			</article>
+			{% endfor %}
+		</div>
+		<div class="col-2 px-0">
+    		RSidebar
+    	</div>
 </div>
-
 {% endblock %}
+
+
+
+
